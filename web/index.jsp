@@ -1,30 +1,40 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <style>
+    <meta charset="UTF-8">
+    <title>Airline</title>
+    <style type="text/css">
         body {
-            background: url(../resources/img/airline.jpg); /* Цвет фона и путь к файлу */
+            background: url("resources/img/airline.jpg");
             background-size: 100%;
-            color: black; /* Цвет текста */
         }
     </style>
 </head>
-<body>
 
+<body>
 <h1> Airline Crew Staff</h1>
-<input id="staffID" type="text" name="quantity" placeholder="Please, enter staff ID"
-       maxlength="2">
-<input id="butt" type="button" onclick="getStaff()" value="Get Staff"/>
-<table id="staff" width="25%" cellpadding="4" border="1">
+<form>
+    <input type="text" name="staffID" id="staffID" placeholder="Please, enter staff ID">
+    <input type="button" name="submit" id="submit" onclick="getStaff()" value="Get staff by ID">
+    <input type="reset" value="Cancel">
+</form>
+
+<br>
+
+<div id="loading"></div>
+
+<table id="staff" width="25%" cellspacing="0" cellpadding="4" border="1">
     <tr>
-        <th>Staff ID</th>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Profession</th>
+        <th align="left" width="15%">Staff ID</th>
+        <th align="center">First name</th>
+        <th align="center">Last name</th>
+        <th align="center">Profession</th>
     </tr>
 </table>
-<div id="loading"></div>
+
 <script type="text/javascript">
+
     function isInt(value) {
         return !isNaN(value) &&
             parseInt(Number(value)) == value &&
@@ -34,7 +44,7 @@
     function getStaff() {
         var id = document.getElementById('staffID').value;
         if (isInt(id) && id > 0) {
-            document.getElementById('loading').innerHTML = "Loading Data...";
+            document.getElementById('loading').innerHTML = "Loading, please wait...";
             request = new XMLHttpRequest();
             if (!request) {
                 console.log('Unable to create XMLHTTP instance');
@@ -53,6 +63,7 @@
                         }
                         var staff = request.response;
                         var row = table.insertRow(table.rows.length);
+                        row.style.textAlign ="center";
                         var cell = row.insertCell(0);
                         var cell1 = row.insertCell(1);
                         var cell2 = row.insertCell(2);
@@ -75,5 +86,6 @@
         }
     }
 </script>
+
 </body>
 </html>
